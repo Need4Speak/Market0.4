@@ -130,14 +130,24 @@ public class CollectionController {
 
 	// @RequestMapping(value = "/orderCancelController/{orderId}")
 	@RequestMapping(value = "/collectionCancelController/{orderId}")
-	public ModelAndView collectionCancel(Model model, @PathVariable int orderId) {
+	public ModelAndView collectionCancel(Model model, @PathVariable int orderId, HttpServletRequest  request) {
 		OrderTable collection = soService.getOrderById(orderId);
 		// Set the status of collection to 0, 0 means cancel.
 		collection.setStatus(0);
 		Timestamp cancelTime = new Timestamp(System.currentTimeMillis());
 		collection.setCancelTime(cancelTime);
 		soService.update(collection);
-		ModelAndView mav = new ModelAndView("redirect:/goodInfoController?goodId=" + collection.getGood().getGoodId());
+		String page = request.getParameter("page");
+		ModelAndView mav = null;
+		if(null != page && page.equals("good_info")){
+			mav = new ModelAndView("redirect:/goodInfoController?goodId=" + collection.getGood().getGoodId());
+		}
+		else if (null != page && page.equals("collection_list")) {
+			mav = new ModelAndView("redirect:/collectionListController?collectionStatus=1");
+		}
+		else {
+			mav = new ModelAndView("");
+		}
 		return mav;
 //		page = (String) request.getAttribute("page");
 //		return "redirect:/goodInfoController?goodId=" + collection.getGood().getGoodId();

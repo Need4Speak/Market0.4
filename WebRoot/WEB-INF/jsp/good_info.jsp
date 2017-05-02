@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
         </div>
         <div class="row clearfix">
-            <div class="col-md-12 column">
+            <div class="col-md-12 column" style="margin-bottom: 50px;">
                 <c:choose>
                     <c:when test="${userName != null}">
                         <c:choose>
@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </form>
                             </c:when>
                             <c:otherwise>
-                                <form action="collectionCancelController/${collection.orderId}" method="post">
+                                <form action="collectionCancelController/${collection.orderId}?page=good_info" method="post">
                                     <% request.setAttribute("page", "good_info"); %>
                                         <input type="submit" class="btn btn-default btn-block active btn-danger" value="取消收藏">
                                 </form>

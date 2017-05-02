@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        
+    <!-- component-scan: 指示SpringMVC扫面目标包中的类  -->
+    <context:component-scan base-package="com.pancake.controller"/>
+    <context:component-scan base-package="com.pancake.service"/>
+    <context:component-scan base-package="com.pancake.formatter" />
+    <!--  
+    <context:component-scan base-package="service"/> 
+    --> 
+    <!-- 
+    annotation-driven: 注册用于支持基于注解的控制器的请求方法的bean对象  
+    	如果没有annotation-driven，resources元素会阻止任意控制器被调用。
+    	若不需要使用resource，则不需要annotation-driven元素
+    -->  
+    <mvc:annotation-driven conversion-service="conversionService" />
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/*.html" location="/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <bean id="messageSource" 
+            class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/resource/messages" />
+    </bean>
+	
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+
+        <property name="formatters">
+            <set>
+                <bean class="com.pancake.formatter.DateFormatter">
+                    <constructor-arg type="java.lang.String" value="MM-dd-yyyy" />
+                </bean>
+            </set>
+        </property>
+	</bean>
+
+    <bean id="multipartResolver"
+            class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="2000000"/>
+    </bean>
+</beans>

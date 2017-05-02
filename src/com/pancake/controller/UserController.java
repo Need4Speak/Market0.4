@@ -37,7 +37,7 @@ public class UserController {
 		ModelAndView mav = null;
 		if (null != userName) {
 			User aUser = userService.getByName(userName);
-			mav = new ModelAndView("userInfo");
+			mav = new ModelAndView("user_info");
 			mav.addObject("user", aUser);
 		}
 		else {
@@ -52,7 +52,7 @@ public class UserController {
 		logger.info("userId in userUpdateController: " + request.getParameter("userId"));
 		User user = userService.getById(Integer.parseInt(request.getParameter("userId")));
 		user.setUserName(request.getParameter("userName"));
-		user.setPhoneNumber(Integer.parseInt(request.getParameter("phoneNumber")));
+		user.setPhoneNumber(Integer.parseInt(request.getParameter("phoneNumber").trim()));
 		user.setGender(request.getParameter("gender"));
 
 		// 判断文件是否为空

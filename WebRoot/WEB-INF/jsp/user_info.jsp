@@ -65,7 +65,7 @@
             <hr />
             <div class="row clearfix">
                 <div class="col-md-12 column">
-                    <input type="file" value="上传图片" name="userPhoto" />
+                   	 修改头像：<input type="file" value="上传图片" name="userPhoto" />
                 </div>
             </div>
             <hr />

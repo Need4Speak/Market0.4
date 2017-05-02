@@ -44,6 +44,7 @@
    </head>
    <body>
       <div class="container">
+      	<%@ include file="bar/categories_bar.jsp"%>
       <form:form commandName="good" action="good_save" method="post" enctype="multipart/form-data">
          <div class="row clearfix" style="margin-top: 50px;">
             <div class="col-md-12 column">

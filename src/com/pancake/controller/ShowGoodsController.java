@@ -62,8 +62,6 @@ public class ShowGoodsController {
 		System.out.println("goodInfoController called");
 		int goodId = Integer.parseInt(request.getParameter("goodId"));
 		GoodForm goodForm = sgsi.showGoodInfo(goodId);
-		User seller = usi.getByName(goodForm.getUserName());
-		System.out.println("seller info: " + seller);
 		OrderTable collection = null;
 		if (request.getSession().getAttribute("userName") != null) {
 			int buyerId = usi.getByName((String) request.getSession().getAttribute("userName")).getUserId();
@@ -78,12 +76,11 @@ public class ShowGoodsController {
 		if (null != goodForm) {
 			mav = new ModelAndView("good_info");
 			mav.addObject("goodForm", goodForm);
-			mav.addObject("seller", seller);
 			mav.addObject("collection", collection);
 			String userPhoto = usi.getByName(goodForm.getUserName()).getUserPhoto();
 			mav.addObject("userPhoto", userPhoto);
 		} else {
-			mav = new ModelAndView("goodNotReady");
+			mav = new ModelAndView("good_not_ready");
 		}
 		return mav;
 	}

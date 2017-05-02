@@ -2,5 +2,5 @@ eclipse.preferences.version=1
 encoding//WebRoot/WEB-INF/jsp/GoodEditForm.jsp=UTF-8
 encoding//WebRoot/WEB-INF/jsp/GoodList.jsp=UTF-8
 encoding//WebRoot/WEB-INF/jsp/bar/foot_bar.jsp=UTF-8
-encoding//WebRoot/WEB-INF/jsp/goodNotReady.jsp=UTF-8
+encoding//WebRoot/WEB-INF/jsp/good_not_ready.jsp=UTF-8
 encoding//WebRoot/WEB-INF/jsp/order_list_test.jsp=UTF-8

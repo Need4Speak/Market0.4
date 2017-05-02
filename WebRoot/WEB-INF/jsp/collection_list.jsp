@@ -17,7 +17,7 @@
         <td>收藏时间：<br>${collection.creationTime}</td>
         <td>${collection.good.name}</td>
         <td>${collection.good.price + collection.good.freight}</td>
-        <td><a href="goodInfoController?goodId=${collection.orderId}">查看</a></td>
+        <td><a href="goodInfoController?goodId=${collection.good.goodId}">查看</a></td>
         <c:choose>
 		    <c:when test="${collection.status == 1}">
 		       	<td><a href="collectionCancelController/${collection.orderId}">取消收藏</a></td>

@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    	商品信息没有准备好 <br>
+    	商品信息没有准备好，或商品已下架 <br>
     <a href="showGoodsController">返回</a>
   </body>
 </html>

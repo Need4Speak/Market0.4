@@ -68,13 +68,6 @@
          <hr/>
          <div class="row clearfix">
             <div class="col-md-12 column">
-               <span class="word">运费费</span>
-               <form:input id="freight" path="freight" class="right" type="text" name="youfei" placeholder="￥0"/>
-            </div>
-         </div>
-         <hr/>
-         <div class="row clearfix">
-            <div class="col-md-12 column">
                <span class="word">分类:</span><br>
                	<label><input name="classification_id" type="radio" value="2" />电子产品   </label> 
 				<label><input name="classification_id" type="radio" value="3" />服装     </label> 
@@ -97,7 +90,7 @@
          </div>
          <hr/>
          <div class="row clearfix">
-            <div class="col-md-12 column">
+            <div class="col-md-12 column" style="margin-bottom: 50px;">
                <input type="submit" class="btn btn-default btn-block active btn-danger" value="发布商品">
             </div>
          </div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -81,7 +82,7 @@
 		            <div class="col-md-8 column">
 		                <p class="discribtion">${collection.good.name}</p>
 		                <p class="price">￥${collection.good.price}</p>
-		                <p class="time">${collection.good.addTime}</p>
+		                <p class="time"><fmt:formatDate value="${collection.good.addTime}" type="both" /></p>
 		            </div>
 		            <hr/>
 		            <button type="button" class="btn btn-default btn-sm red" onclick="{location.href='goodInfoController?goodId=${collection.good.goodId}'}">查看</button>

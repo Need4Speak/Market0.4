@@ -188,7 +188,7 @@ public class CollectionDaoImpl implements CollectionDao {
         List<OrderTable> entitylist=null;
         try{
         	Session session = HibernateSessionFactory.getSession();
-            Query query = session.createQuery("from OrderTable");
+            Query query = session.createQuery("from OrderTable order by creationTime desc");
             query.setFirstResult(offset);
             query.setMaxResults(length);
             entitylist = query.list();

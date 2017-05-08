@@ -101,8 +101,7 @@ public class ShowGoodServiceImpl implements ShowGoodService {
 
 		return goodForm;
 	}
-
-	@Override
+	
 	public List<GoodForm> showGoodWithPage(ArrayList<Good> goodsList) {
 
 		// Use to store good info with seller's info.
@@ -139,5 +138,4 @@ public class ShowGoodServiceImpl implements ShowGoodService {
 
 		return goodForms;
 	}
-
 }

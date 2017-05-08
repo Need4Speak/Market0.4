@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -78,36 +79,32 @@ img.productphoto {
 <body>
 	<div class="container">
 		<%@ include file="bar/categories_bar.jsp"%>
-		<c:forEach items="${goodForms}" var="goodForm">
+		<c:forEach items="${page.list}" var="good">
 			<div class="row clearfix" style="margin-top: 50px;">
 				<div class="col-md-2 column">
-					<img class="head" src="images/${goodForm.userName}/head/${goodForm.userPhoto}" alt="我是头像">
+					<img class="head" src="images/${good.user.userName}/head/${good.user.userPhoto}" alt="我是头像">
 				</div>
 				<div class="col-md-2 column">
-					<p class="name">卖家昵称:${goodForm.userName}</p>
+					<p class="name">卖家昵称:${good.user.userName}</p>
 				</div>
 				<div class="col-md-6 column"></div>
 				<div class="col-md-2 column">
-					<p class="price">￥${goodForm.price}</p>
+					<p class="price">￥${good.price}</p>
 				</div>
 			</div>
 
 			<div class="row clearfix">
-				<a href="goodInfoController?goodId=${goodForm.goodId}">
+				<a href="goodInfoController?goodId=${good.goodId}">
 					<div class="col-md-12 column">
 						<img class="productphoto"
-							src="images/${goodForm.userName}/goodPics/${goodForm.pictures[0]}"
-							alt="我是产品图片"> <img class="productphoto"
-							src="images/${goodForm.userName}/goodPics/${goodForm.pictures[1]}"
-							alt="我是产品图片"> <img class="productphoto"
-							src="images/${goodForm.userName}/goodPics/${goodForm.pictures[2]}"
-							alt="我是产品图片">
+							src="images/${good.user.userName}/goodPics/${fn:split(good.pictures, ', ')[0]}"
+							alt="我是产品图片"> 
 					</div>
 				</a>
 			</div>
 			<div class="row clearfix">
 				<div class="col-md-12 column">
-					<p class="detail">${goodForm.goodName}</p>
+					<p class="detail">${good.name}</p>
 				</div>
 			</div>
 			<hr />
@@ -117,6 +114,42 @@ img.productphoto {
 				</div>
 			</div>
 		</c:forEach>
+		
+		<div class="row clearfix" style="margin-bottom: 50px;">
+			<div class="col-md-12 column">
+				<table align="center">
+					<tr>
+					  	<td colspan="6" align="center" bgcolor="#5BA8DE">共${page.totalRecords}条记录 共${page.totalPages}页 当前第${page.pageNo}页<br>
+					                
+				                <a href="showGoods?pageNo=${page.topPageNo }"><input type="button" name="fristPage" value="首页" /></a>
+				                <c:choose>
+				                  <c:when test="${page.pageNo!=1}">
+				                    
+				                      <a href="showGoods?pageNo=${page.previousPageNo }"><input type="button" name="previousPage" value="上一页" /></a>
+				                    
+				                  </c:when>
+				                  <c:otherwise>
+				                    
+				                      <input type="button" disabled="disabled" name="previousPage" value="上一页" />
+				                    
+				                  </c:otherwise>
+				                </c:choose>
+				                <c:choose>
+				                  <c:when test="${page.pageNo != page.totalPages}">
+				                    <a href="showGoods?pageNo=${page.nextPageNo }"><input type="button" name="nextPage" value="下一页" /></a>
+				                  </c:when>
+				                  <c:otherwise>
+				                    
+				                      <input type="button" disabled="disabled" name="nextPage" value="下一页" />
+				                    
+				                  </c:otherwise>
+				                </c:choose>
+				                <a href="showGoods?pageNo=${page.bottomPageNo }"><input type="button" name="lastPage" value="尾页" /></a>
+				            </td>
+			        	</tr>
+				</table>
+			</div>
+		</div>
 		<%@ include file="bar/foot_bar.jsp"%>
 	</div>
 </body>

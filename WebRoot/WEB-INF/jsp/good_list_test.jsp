@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -26,20 +27,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   		<div>
-  	    <c:forEach items="${goodForms}" var="goodForm">
-    	<c:if test="${goodForm.status == 1}"> 
-	    	<a href="goodInfoController?goodId=${goodForm.goodId}">  
+  	    <c:forEach items="${page.list}" var="good">
+    	<c:if test="${good.status == 1}"> 
+	    	<a href="goodInfoController?goodId=${good.goodId}">  
 			<table width="250px" height="150px" border="1" cellspacing="0" cellpadding="0">
 			  <tr height="20px">
-			    <td >卖家昵称:${goodForm.userName}</td>
-			    <td>价格:${goodForm.price}</td>
+			    <td >卖家昵称:${good.user.userName}</td>
+			    <td>价格:${good.price}</td>
 			  </tr>
 			  <tr>
-			    <td width="125px"><img src="images/${goodForm.pictures[0]}" border="0" width="120px" height="90px" /></td>
-			    <td><img src="images/${goodForm.pictures[1]}" border="0" width="120px" height="90px" /></td>
+			    <td width="125px"><img src="images/${fn:split(good.pictures, ', ')[0]}}" border="0" width="120px" height="90px" /></td>
 			  </tr>
 			  <tr height="50px">
-			    <td colspan="2">商品名:${goodForm.goodName}</td>
+			    <td colspan="2">商品名:${good.name}</td>
 			  </tr>
 			</table>
 			</a>
@@ -50,11 +50,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  <tr>
 	  	<td colspan="6" align="center" bgcolor="#5BA8DE">共${page.totalRecords}条记录 共${page.totalPages}页 当前第${page.pageNo}页<br>
 	                
-                <a href="showAll?pageNo=${page.topPageNo }"><input type="button" name="fristPage" value="首页" /></a>
+                <a href="showGoods?pageNo=${page.topPageNo }"><input type="button" name="fristPage" value="首页" /></a>
                 <c:choose>
                   <c:when test="${page.pageNo!=1}">
                     
-                      <a href="showAll?pageNo=${page.previousPageNo }"><input type="button" name="previousPage" value="上一页" /></a>
+                      <a href="showGoodsl?pageNo=${page.previousPageNo }"><input type="button" name="previousPage" value="上一页" /></a>
                     
                   </c:when>
                   <c:otherwise>
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </c:choose>
                 <c:choose>
                   <c:when test="${page.pageNo != page.totalPages}">
-                    <a href="showAll?pageNo=${page.nextPageNo }"><input type="button" name="nextPage" value="下一页" /></a>
+                    <a href="showGoods?pageNo=${page.nextPageNo }"><input type="button" name="nextPage" value="下一页" /></a>
                   </c:when>
                   <c:otherwise>
                     
@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     
                   </c:otherwise>
                 </c:choose>
-                <a href="showAll?pageNo=${page.bottomPageNo }"><input type="button" name="lastPage" value="尾页" /></a>
+                <a href="showGoods?pageNo=${page.bottomPageNo }"><input type="button" name="lastPage" value="尾页" /></a>
             </td>
         </tr>
         </div>

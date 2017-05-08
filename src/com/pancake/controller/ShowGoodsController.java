@@ -107,21 +107,22 @@ public class ShowGoodsController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/showAll")
+	@RequestMapping(value = "/showGoods")
 	public ModelAndView findAllGood(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("FindAllGood called");
-		ModelAndView mav = new ModelAndView("good_list_test");
+		ModelAndView mav = new ModelAndView("show_goods");
 		try {
-			String pageNo = request.getParameter("pageNo");
-			logger.info("pageNo: " + pageNo);
-			if (pageNo == null) {
-				pageNo = "1";
+			int pageNo = 1;
+			if(request.getParameter("pageNo") != null) {
+				pageNo = Integer.valueOf(request.getParameter("pageNo"));
+				logger.info("pageNo: " + pageNo);
 			}
-			Page page = psi.queryForGoodPage(Integer.valueOf(pageNo), 3);
+			int pageSize = 8;
+			Page page = psi.queryForGoodPage(pageNo, pageSize);
 			mav.addObject(page);
-			List<GoodForm> goodForms = sgsi.showGoodWithPage((ArrayList<Good>) page.getList());
-			request.setAttribute("goodForms", goodForms);
-			mav.addObject(goodForms);
+//			List<GoodForm> goodForms = sgsi.showGoodWithPage(pageSize, pageNo);
+//			request.setAttribute("goodForms", goodForms);
+//			mav.addObject(goodForms);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

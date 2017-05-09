@@ -121,11 +121,11 @@ img.productphoto {
 					<tr>
 					  	<td colspan="6" align="center" bgcolor="#5BA8DE">共${page.totalRecords}条记录 共${page.totalPages}页 当前第${page.pageNo}页<br>
 					                
-				                <a href="showGoods?pageNo=${page.topPageNo }"><input type="button" name="fristPage" value="首页" /></a>
+				                <a href="showGoodsController?pageNo=${page.topPageNo }"><input type="button" name="fristPage" value="首页" /></a>
 				                <c:choose>
 				                  <c:when test="${page.pageNo!=1}">
 				                    
-				                      <a href="showGoods?pageNo=${page.previousPageNo }"><input type="button" name="previousPage" value="上一页" /></a>
+				                      <a href="showGoodsController?pageNo=${page.previousPageNo }"><input type="button" name="previousPage" value="上一页" /></a>
 				                    
 				                  </c:when>
 				                  <c:otherwise>
@@ -136,7 +136,7 @@ img.productphoto {
 				                </c:choose>
 				                <c:choose>
 				                  <c:when test="${page.pageNo != page.totalPages}">
-				                    <a href="showGoods?pageNo=${page.nextPageNo }"><input type="button" name="nextPage" value="下一页" /></a>
+				                    <a href="showGoodsController?pageNo=${page.nextPageNo }"><input type="button" name="nextPage" value="下一页" /></a>
 				                  </c:when>
 				                  <c:otherwise>
 				                    
@@ -144,7 +144,7 @@ img.productphoto {
 				                    
 				                  </c:otherwise>
 				                </c:choose>
-				                <a href="showGoods?pageNo=${page.bottomPageNo }"><input type="button" name="lastPage" value="尾页" /></a>
+				                <a href="showGoodsController?pageNo=${page.bottomPageNo }"><input type="button" name="lastPage" value="尾页" /></a>
 				            </td>
 			        	</tr>
 				</table>

@@ -1,8 +1,6 @@
 package com.pancake.controller;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,18 +13,17 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pancake.entity.GoodForm;
 import com.pancake.entity.OrderTable;
+import com.pancake.entity.Page;
 import com.pancake.service.CollectionService;
+import com.pancake.service.PageService;
 import com.pancake.service.ShowGoodService;
 import com.pancake.service.ShowOrderService;
-import com.pancake.service.UserService;
-import com.pancake.service.impl.ShowGoodServiceImpl;
 import com.pancake.service.impl.ShowOrderServiceImpl;
 import com.pancake.util.SplitStrIntoList;
 
@@ -39,6 +36,8 @@ public class CollectionController {
 	private ShowOrderService soService;
 	@Autowired
 	private CollectionService cs;
+	@Autowired
+	private PageService psi;
 
 	@RequestMapping(value = "/collectController")
 	public String collect(HttpServletRequest request, HttpServletResponse response) {
@@ -77,7 +76,7 @@ public class CollectionController {
 	}
 
 	// @RequestMapping(value = "/orderListController")
-	@RequestMapping(value = "/collectionListController")
+	@RequestMapping(value = "/collectionListControllerOri")
 	public ModelAndView collectionList(HttpSession session, HttpServletRequest request) {
 		logger.info("collectionListController called");
 		String userName = ((String) session.getAttribute("userName"));
@@ -101,6 +100,32 @@ public class CollectionController {
 			}
 			mav.addObject("collectionList", collectionList);
 		} else {
+			mav = new ModelAndView("redirect:/loginBarController");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value = "/collectionListController")
+	public ModelAndView findAllCollection(HttpSession session, HttpServletRequest request) {
+		logger.info("FindAllCollection called");
+		String userName = ((String) session.getAttribute("userName"));
+		ModelAndView mav = null;
+		if (null != userName) {
+			mav = new ModelAndView("collection_list");
+			try {
+				int pageNo = 1;
+				if (request.getParameter("pageNo") != null) {
+					pageNo = Integer.valueOf(request.getParameter("pageNo"));
+					logger.info("pageNo: " + pageNo);
+				}
+				int pageSize = 8;
+				Page page = psi.queryForCollectionPage(pageNo, pageSize, userName);
+				mav.addObject("page", page);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else {
 			mav = new ModelAndView("redirect:/loginBarController");
 		}
 		return mav;

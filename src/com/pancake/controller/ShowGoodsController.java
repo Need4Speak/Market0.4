@@ -35,9 +35,9 @@ public class ShowGoodsController {
 	@Autowired
 	private CollectionService cs;
 
-	@RequestMapping(value = "/showGoodsController")
+	@RequestMapping(value = "/showGoodsControllerOri")
 	public ModelAndView inputProduct(HttpServletRequest request) {
-		logger.info("InputProductController called 0429");	
+		logger.info("InputProductController called 0429");
 		int classification_id;
 		if (request.getParameter("classification_id") != null
 				&& !request.getParameter("classification_id").equals("")) {
@@ -85,44 +85,23 @@ public class ShowGoodsController {
 		return mav;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/showAll.do")
-	public ModelAndView findAllOrder(HttpServletRequest request, HttpServletResponse response) {
-		logger.info("FindAllOrder called");
-		ModelAndView mav = new ModelAndView("order_list_test");
-		try {
-			String pageNo = request.getParameter("pageNo");
-			logger.info("pageNo: " + pageNo);
-			if (pageNo == null) {
-				pageNo = "1";
-			}
-			Page page = psi.queryForOrderPage(Integer.valueOf(pageNo), 3);
-			mav.addObject(page);
-			request.setAttribute("page", page);
-			List<OrderTable> order = page.getList();
-			mav.addObject(order);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return mav;
-	}
-
-	@RequestMapping(value = "/showGoods")
+	@RequestMapping(value = "/showGoodsController")
 	public ModelAndView findAllGood(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("FindAllGood called");
 		ModelAndView mav = new ModelAndView("show_goods");
 		try {
 			int pageNo = 1;
-			if(request.getParameter("pageNo") != null) {
+			if (request.getParameter("pageNo") != null) {
 				pageNo = Integer.valueOf(request.getParameter("pageNo"));
 				logger.info("pageNo: " + pageNo);
 			}
 			int pageSize = 8;
 			Page page = psi.queryForGoodPage(pageNo, pageSize);
 			mav.addObject(page);
-//			List<GoodForm> goodForms = sgsi.showGoodWithPage(pageSize, pageNo);
-//			request.setAttribute("goodForms", goodForms);
-//			mav.addObject(goodForms);
+			// List<GoodForm> goodForms = sgsi.showGoodWithPage(pageSize,
+			// pageNo);
+			// request.setAttribute("goodForms", goodForms);
+			// mav.addObject(goodForms);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

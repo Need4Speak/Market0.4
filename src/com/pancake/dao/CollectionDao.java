@@ -18,6 +18,6 @@ public interface CollectionDao {
 	public List findByFreight(Object freight);
 	public List findByDescription(Object description);
 	public List findAll();
-	public List<OrderTable> queryPageList(int offset, int length);
+	public List<OrderTable> queryPageList(int offset, int length, Object value);
 	public OrderTable merge(OrderTable detachedInstance);
 }

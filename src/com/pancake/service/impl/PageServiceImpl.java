@@ -22,71 +22,92 @@ import com.pancake.entity.Classification;
 import com.pancake.entity.Good;
 import com.pancake.entity.OrderTable;
 import com.pancake.entity.Page;
+import com.pancake.entity.User;
 import com.pancake.service.PageService;
+import com.sun.mail.handlers.message_rfc822;
+
 @Service
 public class PageServiceImpl implements PageService {
-	private CollectionDaoImpl otdi = new CollectionDaoImpl();
+	private CollectionDaoImpl collectionDI = new CollectionDaoImpl();
 	private GoodDaoImpl gdi = new GoodDaoImpl();
 	private ClassificationDaoImpl cdi = new ClassificationDaoImpl();
+	private UserServiceImpl udi = new UserServiceImpl();
 
-	/* 
-	 * @see com.pancake.service.PageService#queryForPage(int, int)
-	 * 分页查询 
+	/*
+	 * @see com.pancake.service.PageService#queryForPage(int, int) 分页查询
+	 * 
 	 * @param currentPage 当前页号：现在显示的页数
-     * @param pageSize 每页显示的记录条数
-     * @return 封闭了分页信息(包括记录集list)的Bean
+	 * 
+	 * @param pageSize 每页显示的记录条数
+	 * 
+	 * @return 封闭了分页信息(包括记录集list)的Bean
 	 */
 	@Override
-	public Page<OrderTable> queryForOrderPage(int currentPage, int pageSize) {
-		Page<OrderTable> page = new Page<OrderTable>();        
-		//当前页开始记录
-		int offset = page.countOffset(currentPage,pageSize); 
-		//分页查询结果集
-	    List<OrderTable> list = otdi.queryPageList(offset, pageSize); 
-		//总记录数
-		int allRow = otdi.findAll().size();
+	public Page<OrderTable> queryForCollectionPage(int currentPage, int pageSize, String userName) {
+		Page<OrderTable> page = new Page<OrderTable>();
+		// 当前页开始记录
+		int offset = page.countOffset(currentPage, pageSize);
 
-	    page.setPageNo(currentPage);
-	    page.setPageSize(pageSize);
-	    page.setTotalRecords(allRow);
-	    page.setList(list);
-	    
-	    return page;
+		User user = udi.getByName(userName);
+		// 分页查询结果集
+		List<OrderTable> list = collectionDI.queryPageList(offset, pageSize, user);
+		// 总记录数
+		List<OrderTable> allCollection = collectionDI.findByBuyer(user);
+		Iterator<OrderTable> iterator = allCollection.iterator();
+		while (iterator.hasNext()) {
+			OrderTable collection = iterator.next();
+			if (1 != collection.getStatus()) {
+				iterator.remove();
+			} else {
+				System.out.println(
+						"colection id :" + collection.getOrderId() + ", collection status: " + collection.getStatus());
+			}
+
 		}
-	
+		int allRow = allCollection.size();
+		System.out.println("allRow: " + allRow);
+
+		page.setPageNo(currentPage);
+		page.setPageSize(pageSize);
+		page.setTotalRecords(allRow);
+		page.setList(list);
+
+		return page;
+	}
+
 	@Override
 	public Page<Good> queryForGoodPage(int currentPage, int pageSize) {
-		Page<Good> page = new Page<Good>();        
-		//当前页开始记录
-		int offset = page.countOffset(currentPage,pageSize); 
-		//分页查询结果集
-	    List<Good> list = gdi.queryPageList(offset, pageSize); 
-		//总记录数
+		Page<Good> page = new Page<Good>();
+		// 当前页开始记录
+		int offset = page.countOffset(currentPage, pageSize);
+		// 分页查询结果集
+		List<Good> list = gdi.queryPageList(offset, pageSize);
+		// 总记录数
 		ArrayList<Good> goodsList = null;
 		int classificationId = -1;
-		if(classificationId == -1) {
+		if (classificationId == -1) {
 			goodsList = (ArrayList<Good>) gdi.findAllByAddTime();
-		}
-		else {
+		} else {
 			Classification classification = cdi.findById(classificationId);
 			goodsList = (ArrayList<Good>) gdi.findByClassification(classification);
 		}
-		
-		// Remove good in goodsList whose status is 0. 0 means this good can not buy.
-		Iterator<Good> iter = goodsList.iterator();  
-		while(iter.hasNext()){  
-			Good good = iter.next();  
-		    if(0 == good.getStatus()){  
-		        iter.remove();  
-		    }  
-		} 
+
+		// Remove good in goodsList whose status is 0. 0 means this good can not
+		// buy.
+		Iterator<Good> iter = goodsList.iterator();
+		while (iter.hasNext()) {
+			Good good = iter.next();
+			if (0 == good.getStatus()) {
+				iter.remove();
+			}
+		}
 		int allRow = goodsList.size();
 
-	    page.setPageNo(currentPage);
-	    page.setPageSize(pageSize);
-	    page.setTotalRecords(allRow);
-	    page.setList(list);
-	    
-	    return page;
+		page.setPageNo(currentPage);
+		page.setPageSize(pageSize);
+		page.setTotalRecords(allRow);
+		page.setList(list);
+
+		return page;
 	}
 }

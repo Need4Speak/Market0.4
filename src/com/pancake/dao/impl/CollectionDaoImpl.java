@@ -79,8 +79,7 @@ public class CollectionDaoImpl implements CollectionDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 
-			OrderTable instance = (OrderTable) session.get(
-					"com.pancake.entity.OrderTable", id);
+			OrderTable instance = (OrderTable) session.get("com.pancake.entity.OrderTable", id);
 			return instance;
 		} catch (RuntimeException re) {
 			// log.error("get failed", re);
@@ -94,9 +93,7 @@ public class CollectionDaoImpl implements CollectionDao {
 		try {
 			Session session = HibernateSessionFactory.getSession();
 
-			List results = session
-					.createCriteria("com.pancake.entity.OrderTable")
-					.add(Example.create(instance)).list();
+			List results = session.createCriteria("com.pancake.entity.OrderTable").add(Example.create(instance)).list();
 			// log.debug("find by example successful, result size: "
 			// + results.size());
 			return results;
@@ -112,8 +109,8 @@ public class CollectionDaoImpl implements CollectionDao {
 		// propertyName
 		// + ", value: " + value);
 		try {
-			String queryString = "from OrderTable as model where model."
-					+ propertyName + "= ?   order by creationTime desc";
+			String queryString = "from OrderTable as model where model." + propertyName
+					+ "= ?   order by creationTime desc";
 			Session session = HibernateSessionFactory.getSession();
 
 			Query queryObject = session.createQuery(queryString);
@@ -174,47 +171,53 @@ public class CollectionDaoImpl implements CollectionDao {
 			throw re;
 		}
 	}
-	
+
 	/**
-     * 分页查询
-     * @param hql 查询的条件
-     * @param offset 开始记录
-     * @param length 一次查询几条记录
-     * @return 返回查询记录集合
-     */
+	 * 分页查询
+	 * 
+	 * @param hql
+	 *            查询的条件
+	 * @param offset
+	 *            开始记录
+	 * @param length
+	 *            一次查询几条记录
+	 * @return 返回查询记录集合
+	 */
 	@Override
-	public List<OrderTable> queryPageList(int offset, int length) {
-        // TODO Auto-generated method stub
-        List<OrderTable> entitylist=null;
-        try{
-        	Session session = HibernateSessionFactory.getSession();
-            Query query = session.createQuery("from OrderTable order by creationTime desc");
-            query.setFirstResult(offset);
-            query.setMaxResults(length);
-            entitylist = query.list();
-            
-        }catch(RuntimeException re){
-            throw re;
-        }
-        
-        return entitylist;
+	public List<OrderTable> queryPageList(int offset, int length, Object value) {
+		// TODO Auto-generated method stub
+		List<OrderTable> entitylist = null;
+		try {
+			Session session = HibernateSessionFactory.getSession();
+			Query query = session
+					.createQuery("from OrderTable where status = 1 and userByBuyerId = ? order by creationTime desc");
+			query.setParameter(0, value);
+			query.setFirstResult(offset);
+			query.setMaxResults(length);
+			entitylist = query.list();
+
+		} catch (RuntimeException re) {
+			throw re;
+		}
+
+		return entitylist;
 	}
 
 	@Override
 	public OrderTable merge(OrderTable detachedInstance) {
-//		log.debug("merging OrderTable instance");
+		// log.debug("merging OrderTable instance");
 		try {
 			Session session = HibernateSessionFactory.getSession();
 			Transaction transaction = session.beginTransaction();
-			
+
 			OrderTable result = (OrderTable) session.merge(detachedInstance);
-			
+
 			transaction.commit();
 			HibernateSessionFactory.closeSession();
-//			log.debug("merge successful");
+			// log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
-//			log.error("merge failed", re);
+			// log.error("merge failed", re);
 			throw re;
 		}
 	}

@@ -21,21 +21,6 @@ import com.pancake.entity.Page;
 public class PageServiceImplTest {
 	@Autowired
 	private PageServiceImpl psi = new PageServiceImpl();
-	@Test
-	public void testQueryForOrderPage() {
-		
-		System.out.println("start debug.");
-		@SuppressWarnings("rawtypes")
-		Page page = psi.queryForOrderPage(1, 3);
-		System.out.println(page.getPageSize());
-		System.out.println(page.getPageNo());
-		System.out.println(page.getTotalRecords());
-//		List aList = (List) page.getList();
-//		for (OrderTable iterable_element : aList) {
-//			
-//		}
-		System.out.println();
-	}
 	
 	@Test
 	public void testQueryForGoodPage() {

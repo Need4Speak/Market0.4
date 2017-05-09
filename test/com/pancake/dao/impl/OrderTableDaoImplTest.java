@@ -43,15 +43,5 @@ public class OrderTableDaoImplTest {
 		}
 		
 	}
-	
-	@Test
-	public void testQueryForPage() {
-		int offset = 0;
-		int length = 3;
-		List<OrderTable> list = otdi.queryPageList(offset, length);
-		for (OrderTable orderTable : list) {
-			System.out.println("sys: " + orderTable.getOrderId());
-		}
-	} 
 
 }

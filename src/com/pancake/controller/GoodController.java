@@ -26,9 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pancake.entity.Good;
 import com.pancake.entity.GoodWithImage;
 import com.pancake.entity.Image;
+import com.pancake.entity.Page;
 import com.pancake.entity.User;
 import com.pancake.service.ClassificationService;
 import com.pancake.service.GoodService;
+import com.pancake.service.PageService;
 import com.pancake.service.UserService;
 import com.pancake.service.impl.ClassificationServiceImpl;
 import com.pancake.util.FilePath;
@@ -44,6 +46,8 @@ public class GoodController {
 	private UserService userService;
 	@Autowired
 	private ClassificationService classificationService;
+	@Autowired
+	private PageService psi;
 
 	private static final Log logger = LogFactory.getLog(GoodController.class);
 	
@@ -147,7 +151,7 @@ public class GoodController {
 	}
 
 //	@RequestMapping(value = "/good_list")
-	@RequestMapping(value = "/goodListController")
+	@RequestMapping(value = "/goodListControllerOri")
 	public String listGoods(Model model, HttpSession session) {
 		String userName = ((String) session.getAttribute("userName"));
 		if (null != userName) {
@@ -155,6 +159,35 @@ public class GoodController {
 			List<Good> goods = goodService
 					.getAllGoodsByUser(userService.getByName((String) session.getAttribute("userName")));
 			model.addAttribute("goods", goods);
+			return "good_list";
+		}
+		else {
+			return "redirect:/loginBarController";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/goodListController")
+	public String goodList(Model model, HttpSession session, HttpServletRequest request) {
+		String userName = ((String) session.getAttribute("userName"));
+		if (null != userName) {
+			try {
+				int pageNo = 1;
+				if (request.getParameter("pageNo") != null) {
+					pageNo = Integer.valueOf(request.getParameter("pageNo"));
+					logger.info("pageNo: " + pageNo);
+				}
+				int pageSize = 8;
+				// 用户暂时只能查看所有发布的商品，不能分类查看。
+				int classificationId = -1;
+				Page page = psi.queryForGoodListPage(pageNo, pageSize, classificationId, userName);
+				model.addAttribute("page", page);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+//			List<Good> goods = goodService
+//					.getAllGoodsByUser(userService.getByName((String) session.getAttribute("userName")));
+//			model.addAttribute("goods", goods);
 			return "good_list";
 		}
 		else {

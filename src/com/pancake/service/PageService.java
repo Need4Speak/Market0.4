@@ -7,4 +7,5 @@ import com.pancake.entity.Page;
 public interface PageService {
 	public Page<OrderTable> queryForCollectionPage(int currentPage,int pageSize, String userName);
 	public Page<Good> queryForGoodPage(int currentPage,int pageSize);
+	Page<Good> queryForGoodListPage(int currentPage, int pageSize, int classificationId, String userName);
 }

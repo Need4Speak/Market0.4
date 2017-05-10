@@ -194,4 +194,22 @@ public class GoodDaoImpl implements GoodDao{
         
         return entitylist;
 	}
+	
+	@Override
+	public List<Good> querySellerGoodPage(int offset, int length, Object user) {
+        List<Good> entitylist=null;
+        try{
+        	Session session = HibernateSessionFactory.getSession();
+            Query query = session.createQuery("from Good where user = ? and status != 0 order by add_time desc");
+            query.setParameter(0, user);
+            query.setFirstResult(offset);
+            query.setMaxResults(length);
+            entitylist = query.list();
+            
+        }catch(RuntimeException re){
+            throw re;
+        }
+        
+        return entitylist;
+	}
 }

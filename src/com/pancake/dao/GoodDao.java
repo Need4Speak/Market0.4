@@ -18,4 +18,5 @@ public interface GoodDao {
 	public List findByClassification(Classification classification);
 	public Good merge(Good detachedInstance);
 	public List<Good> queryPageList(int offset, int length);
+	List<Good> querySellerGoodPage(int offset, int length, Object user);
 }

@@ -110,4 +110,42 @@ public class PageServiceImpl implements PageService {
 
 		return page;
 	}
+
+	@Override
+	public Page<Good> queryForGoodListPage(int currentPage, int pageSize, int classificationId, String userName) {
+		Page<Good> page = new Page<Good>();
+		// 当前页开始记录
+		int offset = page.countOffset(currentPage, pageSize);
+		
+		// 分页查询结果集
+		List<Good> list = gdi.querySellerGoodPage(offset, pageSize, udi.getByName(userName));
+		// 总记录数
+		ArrayList<Good> goodsList = (ArrayList<Good>) gdi.findByUser(udi.getByName(userName));
+//		ArrayList<Good> goodsList = null;
+////		int classificationId = -1;
+//		if (classificationId == -1) {
+//			goodsList = (ArrayList<Good>) gdi.findAllByAddTime();
+//		} else {
+//			Classification classification = cdi.findById(classificationId);
+//			goodsList = (ArrayList<Good>) gdi.findByClassification(classification);
+//		}
+
+		// Remove good in goodsList whose status is 0. 0 means this good can not
+		// buy.
+		Iterator<Good> iter = goodsList.iterator();
+		while (iter.hasNext()) {
+			Good good = iter.next();
+			if (0 == good.getStatus()) {
+				iter.remove();
+			}
+		}
+		int allRow = goodsList.size();
+
+		page.setPageNo(currentPage);
+		page.setPageSize(pageSize);
+		page.setTotalRecords(allRow);
+		page.setList(list);
+
+		return page;
+	}
 }

@@ -67,10 +67,11 @@ public class GoodController {
 	}
 
 //	@RequestMapping(value = "/good_edit/{id}")
-	@RequestMapping(value = "/goodEditController/{id}")
-	public String editGood(Model model, @PathVariable int id) {
+	@RequestMapping(value = "/goodEditController")
+	public String editGood(Model model, HttpServletRequest request) {
 		logger.info("goodEditController called");
-		Good good = goodService.get(id);
+		int goodId = Integer.valueOf(request.getParameter("goodId"));
+		Good good = goodService.get(goodId);
 		model.addAttribute("good", good);
 		return "good_edit_form";
 	}
@@ -139,7 +140,7 @@ public class GoodController {
 		return fileNames;
 	}
 
-	@RequestMapping(value = "/good_update")
+	@RequestMapping(value = "/goodUpdateController")
 	public String updateGood(@ModelAttribute Good good, HttpSession session, HttpServletRequest request) {
 		// Don't no how to bound field "User user", use session temporary。
 		good.setUser(userService.getByName((String) session.getAttribute("userName")));

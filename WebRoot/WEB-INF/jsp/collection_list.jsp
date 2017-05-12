@@ -13,13 +13,9 @@
 <link
 	href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
+<link href="main.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
-body {
-	background-color: #ffffff;
-	padding-top: 10px;
-}
-
-img {
+.collection-img {
 	width: 120px;
 	height: 120px;
 	padding: auto auto;
@@ -73,7 +69,7 @@ hr {
 							value="${fn:split(collection.good.pictures, ', ')[0]}" />
 						<img
 							src="images/${collection.good.user.userName}/goodPics/${first_pic}"
-							class="img-thumbnail">
+							class="img-thumbnail collection-img">
 					</div>
 					<div class="col-md-8 column">
 						<p class="discribtion">${collection.good.name}</p>

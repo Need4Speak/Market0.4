@@ -15,59 +15,49 @@
 	rel="stylesheet">
 <style type="text/css">
 body {
-	background-color: #efefef;
-	padding-right: 20px;
+	background-color: #ffffff;
 	padding-top: 10px;
 }
 
-div {
-	background-color: #ffffff;
-}
-
-div.clearfix {
-	margin-bottom: 15px;
-}
-
 img {
-	width: 100px;
-	height: 100px;
+	width: 120px;
+	height: 120px;
 	padding: auto auto;
 	float: left;
 	margin-right: 20px;
 }
 
 p.discribtion {
-	font-size: 12px;
-	height: 40px;
+	font-size: 15px;
+	height: 60px;
 	width: auto;
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
 
 p.price {
+	text-align: bottom;
 	color: red;
 	font-size: 15px;
 	font-style: bold;
 }
 
-p.time {
-	color: #708090;
+button {
+	border-width: 1px;
+	border-radius: 10%;
+	border-color: red;
+	float: right;
+	color: red;
+	background-color: #ffffff;
+	margin-bottom: 20px;
+	font-size: 10px;
+	padding: 5px;
 }
 
 hr {
-	border-width: 1px;
+	border-width: 3px;
 	border-color: #efefef;
-	margin-top: -5px;
-}
-
-button {
-	float: right;
-	margin-left: 10px;
-	margin-top: -12px;
-}
-
-button.red {
-	border-color: red;
+	margin-top: 0px;
 }
 </style>
 </head>
@@ -105,48 +95,56 @@ button.red {
 			</c:if>
 		</c:forEach>
 
-		<div class="row clearfix" style="margin-bottom: 50px;">
+		<div class="row clearfix"
+			style="margin-bottom: 70px;margin-top: 60px;text-align: center;">
 			<div class="col-md-12 column">
-				<table align="center">
-					<tr>
-						<td colspan="6" align="center" bgcolor="#5BA8DE">共${page.totalRecords}条记录
-							共${page.totalPages}页 当前第${page.pageNo}页<br> <a
-							href="collectionListController?pageNo=${page.topPageNo }"><input
-								type="button" name="fristPage" value="首页" /></a> <c:choose>
-								<c:when test="${page.pageNo!=1}">
-
-									<a href="collectionListController?pageNo=${page.previousPageNo }"><input
-										type="button" name="previousPage" value="上一页" /></a>
-
-								</c:when>
-								<c:otherwise>
-
-									<input type="button" disabled="disabled" name="previousPage"
-										value="上一页" />
-
-								</c:otherwise>
-							</c:choose> <c:choose>
-								<c:when test="${page.pageNo != page.totalPages}">
-									<a href="collectionListController?pageNo=${page.nextPageNo }"><input
-										type="button" name="nextPage" value="下一页" /></a>
-								</c:when>
-								<c:otherwise>
-
-									<input type="button" disabled="disabled" name="nextPage"
-										value="下一页" />
-
-								</c:otherwise>
-							</c:choose> <a href="collectionListController?pageNo=${page.bottomPageNo }"><input
-								type="button" name="lastPage" value="尾页" /></a>
-						</td>
-					</tr>
-				</table>
+				<p>共${page.totalRecords}条记录 共${page.totalPages}页
+					当前第${page.pageNo}页</p>
+			</div>
+			<div class="col-md-12 column">
+				<div class="btn-group btn-group-lg">
+					<button class="btn btn-default" type="button"
+						onclick="{location.href='collectionListController?pageNo=${page.topPageNo}'}">
+						<em class="glyphicon glyphicon-align-justify"></em> 首页
+					</button>
+					<c:choose>
+						<c:when test="${page.pageNo!=1}">
+							<button class="btn btn-default" type="button"
+								onclick="{location.href='collectionListController?pageNo=${page.previousPageNo}'}">
+								<em class="glyphicon glyphicon-align-left"></em> 上一页
+							</button>
+						</c:when>
+						<c:otherwise>
+							<button class="btn btn-default" type="button" disabled="disabled">
+								<em class="glyphicon glyphicon-align-left"></em> 上一页
+							</button>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${page.pageNo != page.totalPages}">
+							<button class="btn btn-default" type="button"
+								onclick="{location.href='collectionListController?pageNo=${page.nextPageNo}'}">
+								<em class="glyphicon glyphicon-align-right"></em> 下一页
+							</button>
+						</c:when>
+						<c:otherwise>
+							<button class="btn btn-default" type="button" disabled="disabled">
+								<em class="glyphicon glyphicon-align-right"></em> 下一页
+							</button>
+						</c:otherwise>
+					</c:choose>
+					<button class="btn btn-default" type="button"
+						onclick="{location.href='collectionListController?pageNo=${page.bottomPageNo}'}">
+						<em class="glyphicon glyphicon-align-justify"></em> 尾页
+					</button>
+				</div>
 			</div>
 		</div>
+
+		<%@ include file="bar/foot_bar.jsp"%>
 	</div>
-	<%@ include file="bar/foot_bar.jsp"%>
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+		<script src="https://code.jquery.com/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>

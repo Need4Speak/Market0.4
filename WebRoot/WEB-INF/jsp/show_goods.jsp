@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -21,21 +21,17 @@
 <script
 	src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 <style type="text/css">
-body {
+<
+style type ="text /css">body {
 	font-family: Arial;
-	padding: 20px;
 	background-color: #efefef;
 }
 
-a {
-	color: #000000;
-	text-decoration: none;
-}
-
-img {
-	width: 32%;
-	height: 32%;
-	border-radius: 10%;
+div.container {
+	width: 100%;
+	padding: 20px;
+	background-color: #ffffff;
+	margin-bottom: 5px;
 }
 
 img.head {
@@ -43,17 +39,18 @@ img.head {
 	height: 23%;
 	margin-bottom: 20px;
 	float: left;
+	margin-right: 20px;
 }
 
-img.productphoto {
-	display: inline;
+img.img-rounded {
+	width: 70%;
+	height: 35%;
 }
 
 .name {
 	text-align: left;
 	font-size: 12px;
 	display: inline;
-	margin-top: 20px;
 }
 
 .price {
@@ -74,6 +71,7 @@ img.productphoto {
 	font-size: 10px;
 }
 </style>
+</style>
 </head>
 
 <body>
@@ -82,7 +80,9 @@ img.productphoto {
 		<c:forEach items="${page.list}" var="good">
 			<div class="row clearfix" style="margin-top: 50px;">
 				<div class="col-md-2 column">
-					<img class="head" src="images/${good.user.userName}/head/${good.user.userPhoto}" alt="我是头像">
+					<img class="img-rounded"
+						src="images/${good.user.userName}/head/${good.user.userPhoto}"
+						alt="我是头像">
 				</div>
 				<div class="col-md-2 column">
 					<p class="name">卖家昵称:${good.user.userName}</p>
@@ -98,7 +98,7 @@ img.productphoto {
 					<div class="col-md-12 column">
 						<img class="productphoto"
 							src="images/${good.user.userName}/goodPics/${fn:split(good.pictures, ', ')[0]}"
-							alt="我是产品图片"> 
+							alt="我是产品图片">
 					</div>
 				</a>
 			</div>
@@ -114,40 +114,44 @@ img.productphoto {
 				</div>
 			</div>
 		</c:forEach>
-		
-		<div class="row clearfix" style="margin-bottom: 50px;">
+
+		<div class="row clearfix" style="margin-bottom: 50px;text-align: center;">
 			<div class="col-md-12 column">
-				<table align="center">
-					<tr>
-					  	<td colspan="6" align="center" bgcolor="#5BA8DE">共${page.totalRecords}条记录 共${page.totalPages}页 当前第${page.pageNo}页<br>
-					                
-				                <a href="showGoodsController?pageNo=${page.topPageNo }"><input type="button" name="fristPage" value="首页" /></a>
-				                <c:choose>
-				                  <c:when test="${page.pageNo!=1}">
-				                    
-				                      <a href="showGoodsController?pageNo=${page.previousPageNo }"><input type="button" name="previousPage" value="上一页" /></a>
-				                    
-				                  </c:when>
-				                  <c:otherwise>
-				                    
-				                      <input type="button" disabled="disabled" name="previousPage" value="上一页" />
-				                    
-				                  </c:otherwise>
-				                </c:choose>
-				                <c:choose>
-				                  <c:when test="${page.pageNo != page.totalPages}">
-				                    <a href="showGoodsController?pageNo=${page.nextPageNo }"><input type="button" name="nextPage" value="下一页" /></a>
-				                  </c:when>
-				                  <c:otherwise>
-				                    
-				                      <input type="button" disabled="disabled" name="nextPage" value="下一页" />
-				                    
-				                  </c:otherwise>
-				                </c:choose>
-				                <a href="showGoodsController?pageNo=${page.bottomPageNo }"><input type="button" name="lastPage" value="尾页" /></a>
-				            </td>
-			        	</tr>
-				</table>
+				<p>共${page.totalRecords}条记录 共${page.totalPages}页 当前第${page.pageNo}页</p>
+			</div>
+			<div class="col-md-12 column">
+				<div class="btn-group btn-group-lg">
+					<button class="btn btn-default" type="button" onclick="{location.href='showGoodsController?pageNo=${page.topPageNo}'}">
+						<em class="glyphicon glyphicon-align-justify"></em> 首页
+					</button>
+					<c:choose>
+						<c:when test="${page.pageNo!=1}">
+							<button class="btn btn-default" type="button" onclick="{location.href='showGoodsController?pageNo=${page.previousPageNo}'}">
+								<em class="glyphicon glyphicon-align-left"></em> 上一页
+							</button>
+						</c:when>
+						<c:otherwise>
+							<button class="btn btn-default" type="button" disabled="disabled">
+								<em class="glyphicon glyphicon-align-left"></em> 上一页
+							</button>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${page.pageNo != page.totalPages}">
+							<button class="btn btn-default" type="button" onclick="{location.href='showGoodsController?pageNo=${page.nextPageNo}'}">
+								<em class="glyphicon glyphicon-align-right"></em> 下一页
+							</button>
+						</c:when>
+						<c:otherwise>
+							<button class="btn btn-default" type="button" disabled="disabled">
+								<em class="glyphicon glyphicon-align-right"></em> 下一页
+							</button>
+						</c:otherwise>
+					</c:choose>
+					<button class="btn btn-default" type="button" onclick="{location.href='showGoodsController?pageNo=${page.bottomPageNo}'}">
+						<em class="glyphicon glyphicon-align-justify"></em> 尾页
+					</button>
+				</div>
 			</div>
 		</div>
 		<%@ include file="bar/foot_bar.jsp"%>

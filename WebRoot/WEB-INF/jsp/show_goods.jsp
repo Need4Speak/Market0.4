@@ -110,7 +110,7 @@ img.img-rounded {
 			<hr />
 			<div class="row clearfix">
 				<div class="col-md-12 column">
-					<p class="location">来自成都</p>
+					<p class="location">望江校区</p>
 				</div>
 			</div>
 		</c:forEach>

@@ -8,7 +8,7 @@ body {
     background-color: #ffffff;
     text-align: center;
     font-size: 18px;
-    background:#d9534f;
+    background:#FFFFFF;
 }
 
 a {
@@ -16,8 +16,12 @@ a {
     text-decoration: none;
 }
 
-.whiteFont {
-	color:#FFFFFF;
+.blackFont {
+	color: #222222;
+}
+.foot_img {
+	width:10%; 
+    height:10%; 
 }
 </style>
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
@@ -26,27 +30,27 @@ a {
             <tr>
                 <td style="width:20%;">
                     <div>
-                        <a href="showGoodsController"><span class="whiteFont">首页</span></a>
+                        <a href="showGoodsController"><span class="blackFont"><img class="foot_img" alt="首页" src="images/home.png" /></span></a>
                     </div>
                 </td>
                 <td style="width:20%;">
                     <div>
-                        <a href="collectionListController?collectionStatus=1"><span class="whiteFont">收藏</span></a>
+                        <a href="collectionListController?collectionStatus=1"><img class="foot_img" alt="收藏" src="images/heart.png" /></a>
                     </div>
                 </td>
                 <td style="width: 20%;">
                     <div>
-                        <a href="goodInputController"><span class="whiteFont">发布</span></a>
+                        <a href="goodInputController"><img class="foot_img" alt="发布" src="images/plus.png" /></a>
                     </div>
                 </td>
                 <td style="width: 20%;">
                     <div>
-                        <a href="goodListController"><span class="whiteFont">卖的</span></a>
+                        <a href="goodListController"><img class="foot_img" alt="所有发布" src="images/product_list.png" /></a>
                     </div>
                 </td>
                 <td style="width: 20%;">
                     <div>
-                        <a href="userInfoController"><span class="whiteFont">我</span></a>
+                        <a href="userInfoController"><img class="foot_img" alt="个人" src="images/me.png" /></a>
                     </div>
                 </td>
             </tr>

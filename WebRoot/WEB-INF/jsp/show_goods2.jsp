@@ -17,14 +17,50 @@
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <link href="css/main.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-
+    <link href="main.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">  
+    div.container {
+        width: 100%;
+        padding: 20px;
+        background-color: #ffffff;
+        margin-bottom: 5px;
+    }
+    
+    img.head {
+        width: 23%;
+        height: 23%;
+        margin-bottom: 20px;
+        float: left;
+        margin-right: 20px;
+    }
+    
+    img.img-rounded {
+        width: 70%;
+        height: 35%;
+    }
+    
+    .name {
+        text-align: left;
+        font-size: 12px;
+        display: inline;
+    }
+    
     .price {
         font-size: 16px;
         color: red;
         font-style: bold;
         text-align: right;
+    }
+    
+    .detail {
+        margin-top: 20px;
+        font-size: 15px;
+    }
+    
+    .location {
+        text-align: right;
+        color: blue;
+        font-size: 10px;
     }
     </style>
 </head>
@@ -33,46 +69,43 @@
     <div class="container">
         <%@ include file="bar/categories_bar.jsp"%>
             <c:forEach items="${page.list}" var="good">
-                <a href="goodInfoController?goodId=${good.goodId}">
-                    <div class="row clearfix divcss5">
-                        <div class="col-xs-4 column aligncenter">
-                            <div class="aligncenter">
-                                <img alt="140x140" src="images/${good.user.userName}/goodPics/${fn:split(good.pictures, ', ')[0]}" class="img-rounded imgcss5" />
-                            </div>
-                        </div>
-                        <div class="col-xs-4 column ">
-                            <div class="div-heighthalf">
-                                <p class="text-left center-vertical">
-                                    <strong>${good.name}</strong>
-                                </p>
-                            </div>
-                            <div class="div-heighthalf">
-                                <p class="text-left center-vertical">
-                                    <strong>卖家:${good.user.userName}</strong>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-xs-4 column div-heightfull">
-                            <div class="div-heighthalf">
-                                <p class="text-right center-vertical price">
-                                    <strong>￥${good.price}</strong>
-                                </p>
-                            </div>
-                            <div class="div-heighthalf">
-                                <p class="text-right center-vertical">
-                                    <strong>望江校区</strong>
-                                </p>
-                            </div>
-                        </div>
+                <div class="row clearfix" style="margin-top: 50px;">
+                    <div class="col-md-2 column">
+                        <img class="img-rounded" src="images/${good.user.userName}/head/${good.user.userPhoto}" alt="我是头像">
                     </div>
-                </a>
+                    <div class="col-md-2 column">
+                        <p class="name">卖家昵称:${good.user.userName}</p>
+                    </div>
+                    <div class="col-md-6 column"></div>
+                    <div class="col-md-2 column">
+                        <p class="price">￥${good.price}</p>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <a href="goodInfoController?goodId=${good.goodId}">
+                        <div class="col-md-12 column">
+                            <img class="productphoto" src="images/${good.user.userName}/goodPics/${fn:split(good.pictures, ', ')[0]}" alt="我是产品图片">
+                        </div>
+                    </a>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <p class="detail">${good.name}</p>
+                    </div>
+                </div>
+                <hr />
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <p class="location">望江校区</p>
+                    </div>
+                </div>
             </c:forEach>
-            <div class="row clearfix" style="margin-bottom: 60px;margin-top: 20px;text-align: center;">
-                <div class="col-xs-12 column" style="height: 50px">
+            <div class="row clearfix" style="margin-bottom: 50px;text-align: center;">
+                <div class="col-md-12 column">
                     <p>共${page.totalRecords}条记录 共${page.totalPages}页 当前第${page.pageNo}页</p>
                 </div>
-                <div class="col-xs-12 column">
-                    <div class="btn-group btn-group-md">
+                <div class="col-md-12 column">
+                    <div class="btn-group btn-group-lg">
                         <button class="btn btn-default" type="button" onclick="{location.href='showGoodsController?pageNo=${page.topPageNo}'}">
                             <em class="glyphicon glyphicon-align-justify"></em> 首页
                         </button>

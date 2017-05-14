@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <link href="main.css" rel="stylesheet" type="text/css"/>
+    <link href="css/main.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
     img {
         width: 100%;
@@ -25,8 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
     
     img.head {
-        width: 23%;
-        height: 23%;
+        width: 50px;
+        height: 50px;
         float: left;
         border-radius: 20%;
     }

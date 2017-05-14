@@ -17,8 +17,8 @@ a {
 }
 
 .foot_img {
-    width: 15%;
-    height: 15%;
+    width: 30%;
+    height: 30%;
 }
 
 

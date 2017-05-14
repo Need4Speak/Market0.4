@@ -39,36 +39,36 @@
     <div class="container">
         <%@ include file="bar/categories_bar.jsp"%>
             <form action="userUpdateController" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="userId" value="${user.userId}">
                 <div class="row clearfix">
-                    <div class="col-md-12 column">
+                    <div class="col-xs-12 column">
+                        <input type="hidden" name="userId" value="${user.userId}">
                         <span class="head">头像</span> <img src="images/${sessionScope.userName}/head/${user.userPhoto}" class="img-rounded usr-img">
                     </div>
                 </div>
                 <hr />
                 <div class="row clearfix">
-                    <div class="col-md-12 column">
+                    <div class="col-xs-12 column">
                         修改头像：
                         <input type="file" value="上传图片" name="userPhoto" />
                     </div>
                 </div>
                 <hr />
                 <div class="row clearfix">
-                    <div class="col-md-12 column">
+                    <div class="col-xs-12 column">
                         <span class="name">用户名</span>
                         <input type="text" name="userName" value="${user.userName}">
                     </div>
                 </div>
                 <hr />
                 <div class="row clearfix ">
-                    <div class="col-md-12 column ">
+                    <div class="col-xs-12 column ">
                         <span class="contact ">联系方式</span>
                         <input type="text" name="phoneNumber" value="${user.phoneNumber}">
                     </div>
                 </div>
                 <hr />
                 <div class="row clearfix ">
-                    <div class="col-md-12 column ">
+                    <div class="col-xs-12 column ">
                         <span class="sex ">性别</span>
                         <input type="text" name="gender" value="${user.gender}">
                     </div>
@@ -76,10 +76,10 @@
                 <hr />
                 <div class="row clearfix">
                     <div class="row clearfix">
-                        <div class="col-md-6 column">
+                        <div class="col-xs-6 column">
                             <button type="submit" class="btn btn-success btn-lg btn-block active">确认修改</button>
                         </div>
-                        <div class="col-md-6 column" style="margin-bottom: 50px;">
+                        <div class="col-xs-6 column" style="margin-bottom: 50px;">
                             <button type="button" class="btn btn-danger btn-lg btn-block active" onclick="{location.href='logoutController?userName=${userNameInSession}'}">注 销
                             </button>
                         </div>
@@ -93,4 +93,5 @@
 </body>
 
 </html>
+
 

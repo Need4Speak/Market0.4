@@ -9,10 +9,10 @@
     color: #FFFFFF;
 }
 </style>
-<div class="row clearfix" style="margin-top: 50px;">
+<div class="row clearfix" style="margin-top: 60px;">
     <div class="col-xs-12 column">
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="categories" style="height:auto; border:0px; padding:10px;background:#d9534f;">
+            <div class="categories" style="height:auto; border:0px; padding:12px;background:#d9534f;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td style="width:20%;">
